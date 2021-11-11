@@ -1,13 +1,18 @@
 <?php
 $host='localhost';
+$user='root';
+$pass='';
 $db='adise21_matrexa';
-require_once "config_local.php";
+//require_once "config_local.php";
 
-$user=$DB_USER;
-$pass=$DB_PASS;
+/*$con=mysqli_connect($host,$user,$pass,$db);
+if($con)
+    echo 'connected successfully to adise21_matrexa database';
 
-/*
-if(gethostname()=='users.iee.ihu.gr'){
-    $mysqli=new mysqli($host,$user,$pass,$db,null,)
-}*/
+//$user=$DB_USER;
+//$pass=$DB_PASS;
+
+*/
+    $mysqli=new mysqli($host,$user,$pass,$db,null);
+
 ?>
