@@ -1,6 +1,7 @@
 <?php
 require_once "lib/dbconnect.php";
 require_once "lib/board.php";
+require_once "lib/pieces.php";
 require_once "lib/game.php";
 
 $method =$_SERVER['REQUEST_METHOD'];
@@ -27,7 +28,15 @@ switch ($r=array_shift($request)){
                 break;
             default: header("HTTP/1.1 404 Not Found");
                 exit;
-
+     case 'pieces': 
+            switch ($b=array_shift($request)){    
+                case '':
+                case null : handle_pieces($method);
+                break;
+                default:header("HTTP/1.1 404 not Found");
+                break;  
+            }
+            exit;
 }
 function handle_board($method){
 
@@ -37,9 +46,15 @@ function handle_board($method){
             reset_board();
         }
 }
+//με την handle_pieces παίρνω τα πιόνια σε ξεχωριστό αρχείο json για να μπορεσω να κάνω την αντιστοιχία με τις εικόνες
+function handle_pieces($method){
+    if($method=='GET'){
+        show_pieces();
+}
 
-function handle_piece($method ,$x,$y,$input){
-    ;
+}
+function handle_piece($method,$request,$input){
+
 }
 function handle_player($method,$p,$input){
     ;

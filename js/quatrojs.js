@@ -1,4 +1,5 @@
 $(function(){
+  draw_empty_pieces_table();
   fill_board();
 });
 function generate_table() {
@@ -44,10 +45,33 @@ function generate_table() {
 //takes the json file from the url 
 function fill_board(){
     $.ajax({url:"quatro.php/board",succes:fill_board_by_data});
+    $.ajax({url:"quatro.php/pieces",succes:draw_empty_pieces_table});
 }
 function fill_board_by_data(data){
-    for(var i=0;i<data.length;i++){
-        var o=data[i];
-        var id=o.x+o.y;
-    }
+    
+}
+//thelw na dimiourgisw enan pinaka me ola ta pionia
+function draw_empty_pieces_table(){
+
+  var body = document.getElementsByTagName("body")[0];
+  var tbl = document.createElement("table");
+  var tblBody = document.createElement("tbody");
+
+  for(var i=1;i<17;i++){
+    var cell=document.createElement("td");
+    var im=i;
+    var src='images/'+im+'.jpg';
+    var cellText=document.createElement('img');
+    cellText.src=src;
+    cell.appendChild(cellText);
+    tblBody.appendChild(cell);
+  }
+
+  
+   // put the <tbody> in the <table>
+   tbl.appendChild(tblBody);
+   // appends <table> into <body>
+   body.appendChild(tbl);
+   // sets the border attribute of tbl to 2;
+   tbl.setAttribute("border", "2");
 }
