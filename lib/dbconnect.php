@@ -13,6 +13,14 @@ if($con)
 //$pass=$DB_PASS;
 
 */
+
+/* You should enable error reporting for mysqli before attempting to make a connection */
+
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
     $mysqli=new mysqli($host,$user,$pass,$db,null);
+
+    /* Set the desired charset after establishing a connection */
+    mysqli_set_charset($mysqli, 'utf8mb4');
 
 ?>
