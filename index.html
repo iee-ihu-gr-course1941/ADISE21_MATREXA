@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width,initial-scale">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title >ΑΔΙΣΕ: Quatro board game</title>
+        <title >ΑΔΙΣΕ: Quarto board game</title>
 
         <!--Botstrap core CSS-->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,7 +18,11 @@
     <body>
 <p>Quatro Board Game</p>
 <div id="quarto_board"></div>
+<div id="board"></div>
 <input type="button" value="Έναρξη" onclick="generate_table()" id="btn">
+<br>Επόμενη Κίνηση (x y) : <input id='nextmove'>
+<button id='do_move' class='btn btn-primary'>ΚΑΝΕ ΚΙΝΗΣΗ</button> 
+ <br>(π.χ. για να μετακινήσετε ένα πιόνι  2,2  τότε θα γράψετε 2 2 <br>
 
 </body>
 </html>
