@@ -14,15 +14,69 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/quatrojs.js"></script>
+        <script src="js/move.js"></script>
     </head>
     <body>
-<p>Quatro Board Game</p>
-<div id="quarto_board"></div>
+<p><h1>Quarto Board Game</h1></p>
 <div id="board"></div>
-<input type="button" value="Έναρξη" onclick="generate_table()" id="btn">
-<br>Επόμενη Κίνηση (x y) : <input id='nextmove'>
-<button id='do_move' class='btn btn-primary'>ΚΑΝΕ ΚΙΝΗΣΗ</button> 
- <br>(π.χ. για να μετακινήσετε ένα πιόνι  2,2  τότε θα γράψετε 2 2 <br>
+<br><h4>Choose a pawn for the opponent:</h4><div id="chosen_piece"></div>
+ <div id="quarto_board"></div>
+
+
+
+
+
+
+<!--Popup displayed at the first game to learn the rules-->
+<div id="startingTutorial">
+    <h1>QUARTO</h1>
+    <p>
+        Do you know how to play ?
+    </p>
+    <table>
+        <tr>
+            <td class="tutoButton" id="startingTutorialYes">YES</td>
+            <td class="tutoButton" id="startingTutorialNo">NO</td>
+        </tr>
+    </table>
+</div>
+
+
+<!--The tutorial ball-->
+<div id="tutorial">
+    <h3>RULES</h3>
+</div>
+
+<!--The tutorial panel step 1-->
+<div class="tutorial" id="step1">
+    <p>
+        In Quarto, there are 16 unique pieces, each of which is either:
+        <ul>
+            <li>Tall or short</li>
+            <li>Black or white</li>
+            <li>Square or circular</li>
+            <li>Hollow-top or solid-top</li>
+        </ul>
+    </p>
+</div>
+
+<!--Tutorial step 2-->
+<div class="tutorial tutorialBig" id="step2">
+    <p>
+        A player wins by doing a <span class="quarto">QUARTO</span>. <br/><br/>
+        A <span class="quarto">QUARTO</span> can be done by placing on the board four pieces with a common attribute in a line or in a row.<br/><br/>
+    </p>
+</div>
+
+<!--Tutorial step 3-->
+<div class="tutorial tutorialBig" id="step3">
+    <p>
+        At the beginning of his turn, a player places on the board the piece selected by his opponent. <br/><br/>
+        If a <span class="quarto">QUARTO</span> is done, the current player won. If not, he selects a piece for his opponent, and his turn is over.<br/><br/>
+        The first player to do a <span class="quarto">QUARTO</span> wins the game!
+    </p>
+</div>
+
 
 </body>
 </html>

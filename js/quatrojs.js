@@ -4,8 +4,6 @@ $(function () {
   fill_board();
   create_board_by_data();
   fill_board_by_data();
-
-
 });
 function generate_table() {
 
@@ -53,6 +51,7 @@ function fill_board() {
     success: create_board_by_data
   });
 }
+
 function create_board_by_data(data) {
   for (var i = 0; i < 16; i++) {
     var o = data[i];
@@ -60,17 +59,27 @@ function create_board_by_data(data) {
     $(id).html(id);
   }
 }
-function fill_board_by_data(data) {
 
+function fill_board_by_data(data) {
   for (var i = 0; i < 16; i++) {
     var o = data[i];
     var id = '#square_' + o.id;
+    var $k=id;
     var c = (o.id != null) ? o.id : '';
-    var im = (o.id != null) ? '<img class="piece" src="images/' + c + '.jpg">' : '';
+    var im = (o.id != null) ? '<img id="' + c + '" class="piece" src="images/' + c + '.jpg" onclick="send_piece('+i+')">' : '';
     $(id).html(im);
   }
 
 }
-
-
-
+//thelw na steilw ton pinaka o se json arxeio sto url quatro.php/board/piece  
+function send_piece(o) {
+  $.ajax({
+    url:"quatro.php/board/piece",
+    type:"POST",
+    dataType:"json",
+    success: send_piece_for_save
+  });
+  }
+  function send_piece_for_save(data){
+    
+  }
