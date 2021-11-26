@@ -163,8 +163,8 @@ CREATE TABLE `players` (
 --
 
 INSERT INTO `players` (`username`, `player_id`, `token`, `last_action`) VALUES
-('f', 'p1', '250b9838f883652892360891af885ff8', '2021-11-26 16:39:16'),
-(NULL, 'p2', NULL, '2021-11-26 16:39:07');
+(NULL, 'p1', NULL, NULL),
+(NULL, 'p2', NULL, NULL);
 
 --
 -- Indexes for dumped tables
