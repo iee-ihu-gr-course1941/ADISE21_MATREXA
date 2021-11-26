@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2021 at 04:51 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.3.31
+-- Generation Time: Nov 26, 2021 at 05:52 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -104,20 +104,10 @@ INSERT INTO `board_empty` (`x`, `y`, `piece_color`, `piece_height`, `piece_consi
 
 CREATE TABLE `game_status` (
   `status` enum('not active','initialized','started','ended','aborded') NOT NULL DEFAULT 'not active',
-  `p_turn` enum('P1','P2') DEFAULT NULL,
-  `result` enum('P1','P2','D') DEFAULT NULL,
-  `last_change` timestamp NULL DEFAULT NULL
+  `p_turn` enum('p1','p2') DEFAULT NULL,
+  `result` enum('p1','p2','D') DEFAULT NULL,
+  `last_change` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Triggers `game_status`
---
-DELIMITER $$
-CREATE TRIGGER `game_status_update` BEFORE UPDATE ON `game_status` FOR EACH ROW BEGIN
-	SET NEW.last_change=NOW();
-END
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -162,11 +152,19 @@ INSERT INTO `pieces` (`color`, `height`, `consistency`, `Shape`, `id`) VALUES
 --
 
 CREATE TABLE `players` (
-  `username` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `Player_n` enum('p1','p2') COLLATE utf8_bin NOT NULL,
-  `Token` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `last_action` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `username` varchar(20) DEFAULT NULL,
+  `player_id` enum('p1','p2') NOT NULL,
+  `token` varchar(32) DEFAULT NULL,
+  `last_action` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `players`
+--
+
+INSERT INTO `players` (`username`, `player_id`, `token`, `last_action`) VALUES
+('f', 'p1', '250b9838f883652892360891af885ff8', '2021-11-26 16:39:16'),
+(NULL, 'p2', NULL, '2021-11-26 16:39:07');
 
 --
 -- Indexes for dumped tables
@@ -177,6 +175,12 @@ CREATE TABLE `players` (
 --
 ALTER TABLE `board_empty`
   ADD PRIMARY KEY (`x`,`y`);
+
+--
+-- Indexes for table `players`
+--
+ALTER TABLE `players`
+  ADD PRIMARY KEY (`player_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
