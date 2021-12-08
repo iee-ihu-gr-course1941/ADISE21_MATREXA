@@ -117,3 +117,19 @@ function send_piece(o) {
     $('#board').html(t);
     $('.quarto_square').click(click_on_piece);
   }
+  function fill_main_board(){
+    $.ajax({url: "quatro.php/board/", 
+    headers: {"X-Token": me.token},
+      success: fill_board_by_data });
+  }
+  
+  function fill_board_by_data(data){
+      board=data;
+      for(var i=0;i<data.length;i++) {
+      var o = board[i];
+      var id = '#square_'+ o.x +'_' + o.y;
+      var c = (o.id != null) ? o.id : '';
+      var im = (o.id != null) ? '<img id="' + c + '" class="piece" src="images/' + c + '.jpg" >' : '';
+      $(id).html(im);
+      }
+  }
