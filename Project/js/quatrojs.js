@@ -83,3 +83,24 @@ function send_piece(o) {
   function send_piece_for_save(data){
     
   }
+  function draw_board_with_pieces() {
+
+    var t = '<table id="quarto_table">';
+    for (var i = 0; i < 1; i++) {
+      t += '<tr>';
+      for (var j = 0; j < 8; j++) {
+        t += '<td onclick="select_piece_to_play('+j+')" class="quarto_square_" id="square_' + j + '">' + j + '</td>';
+      }
+      t += '</tr>'
+    }
+    for (var i = 0; i < 1; i++) {
+      t += '<tr>';
+      for (var j = 8; j < 16; j++) {
+        t += '<td onclick="select_piece_to_play('+j+')" class="quarto_square_" id="square_' + j + '">' + j + '</td>';
+      }
+      t += '</tr>'
+    }
+    t += '</table>';
+    $('#quarto_board').html(t);
+   
+  }
