@@ -104,3 +104,16 @@ function send_piece(o) {
     $('#quarto_board').html(t);
    
   }
+  function draw_empty_board() {
+    var t = '<table id="board_table">';
+    for (var i = 1; i < 5; i++) {
+      t += '<tr>';
+      for (var j = 1; j < 5; j++) {
+        t += '<td  class="quarto_square" id="square_' + i + '_' + j + '"></td>';
+      }//onclick="place_piece_to_board('+i+j+')"
+      t += '</tr>';
+    }
+    t += '</table>';
+    $('#board').html(t);
+    $('.quarto_square').click(click_on_piece);
+  }
