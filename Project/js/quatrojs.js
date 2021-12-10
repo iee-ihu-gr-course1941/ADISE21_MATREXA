@@ -104,3 +104,32 @@ function send_piece(o) {
     $('#quarto_board').html(t);
    
   }
+  function draw_empty_board() {
+    var t = '<table id="board_table">';
+    for (var i = 1; i < 5; i++) {
+      t += '<tr>';
+      for (var j = 1; j < 5; j++) {
+        t += '<td  class="quarto_square" id="square_' + i + '_' + j + '"></td>';
+      }//onclick="place_piece_to_board('+i+j+')"
+      t += '</tr>';
+    }
+    t += '</table>';
+    $('#board').html(t);
+    $('.quarto_square').click(click_on_piece);
+  }
+  function fill_main_board(){
+    $.ajax({url: "quatro.php/board/", 
+    headers: {"X-Token": me.token},
+      success: fill_board_by_data });
+  }
+  
+  function fill_board_by_data(data){
+      board=data;
+      for(var i=0;i<data.length;i++) {
+      var o = board[i];
+      var id = '#square_'+ o.x +'_' + o.y;
+      var c = (o.id != null) ? o.id : '';
+      var im = (o.id != null) ? '<img id="' + c + '" class="piece" src="images/' + c + '.jpg" >' : '';
+      $(id).html(im);
+      }
+  }
