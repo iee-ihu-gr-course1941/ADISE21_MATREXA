@@ -133,3 +133,18 @@ function send_piece(o) {
       $(id).html(im);
       }
   }
+  function board_status_update() {
+    $.ajax({url: "quatro.php/board/", success: update_board,headers: {"X-Token": me.token} });
+    
+  }
+  function update_board(data){
+    board_status=data;
+    fill_main_board();
+    move_result();
+    if(game_status.p_turn==me.player_id &&  me.player_id!=null) {
+      x=0;
+      setTimeout(function() { board_status_update();}, 15000);
+    } else {
+      setTimeout(function() { board_status_update();}, 4000);
+    }
+  }
