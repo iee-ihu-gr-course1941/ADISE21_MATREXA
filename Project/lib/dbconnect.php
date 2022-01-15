@@ -1,26 +1,22 @@
 <?php
-$host='localhost';
-$user='root';
-$pass='';
-$db='adise21_matrexa';
-//require_once "config_local.php";
+$host = '';
+$db = 'adise21_matrexa';
 
-/*$con=mysqli_connect($host,$user,$pass,$db);
-if($con)
-    echo 'connected successfully to adise21_matrexa database';
+require_once "config_local.php";
 
-//$user=$DB_USER;
-//$pass=$DB_PASS;
+$user = $DB_USER;
+$pass = $DB_PASS;
 
-*/
+if (gethostname() == 'users.iee.ihu.gr') {
+    $mysqli = new mysqli($host, $user, $pass, $db, null, '/home/student/it/2017/it174871/mysql/run/mysql.sock');
+} else {
+    $pass=null;
+    $mysqli = new mysqli($host, $user, $pass, $db);
+}
 
-/* You should enable error reporting for mysqli before attempting to make a connection */
-
-    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-    $mysqli=new mysqli($host,$user,$pass,$db,null);
-
-    /* Set the desired charset after establishing a connection */
-    mysqli_set_charset($mysqli, 'utf8mb4');
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL:  (" .
+        $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
 
 ?>
