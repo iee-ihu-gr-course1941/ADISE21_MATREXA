@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2021 at 05:52 PM
+-- Generation Time: Dec 08, 2021 at 02:48 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -30,34 +30,12 @@ SET time_zone = "+00:00";
 CREATE TABLE `board` (
   `x` tinyint(1) NOT NULL,
   `y` tinyint(1) NOT NULL,
-  `piece_color` enum('W','B') DEFAULT NULL,
-  `piece_height` enum('S','T') DEFAULT NULL,
-  `piece_consistency` enum('H','SO') DEFAULT NULL,
-  `piece_shape` enum('SQ','R') DEFAULT NULL,
+  `color` enum('W','B') DEFAULT NULL,
+  `height` enum('S','T') DEFAULT NULL,
+  `consistency` enum('H','SO') DEFAULT NULL,
+  `Shape` enum('SQ','R') DEFAULT NULL,
   `id` int(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `board`
---
-
-INSERT INTO `board` (`x`, `y`, `piece_color`, `piece_height`, `piece_consistency`, `piece_shape`, `id`) VALUES
-(1, 1, NULL, NULL, NULL, NULL, 0),
-(1, 2, NULL, NULL, NULL, NULL, 0),
-(1, 3, NULL, NULL, NULL, NULL, 0),
-(1, 4, NULL, NULL, NULL, NULL, 0),
-(2, 1, NULL, NULL, NULL, NULL, 0),
-(2, 2, NULL, NULL, NULL, NULL, 0),
-(2, 3, NULL, NULL, NULL, NULL, 0),
-(2, 4, NULL, NULL, NULL, NULL, 0),
-(3, 1, NULL, NULL, NULL, NULL, 0),
-(3, 2, NULL, NULL, NULL, NULL, 0),
-(3, 3, NULL, NULL, NULL, NULL, 0),
-(3, 4, NULL, NULL, NULL, NULL, 0),
-(4, 1, NULL, NULL, NULL, NULL, 0),
-(4, 2, NULL, NULL, NULL, NULL, 0),
-(4, 3, NULL, NULL, NULL, NULL, 0),
-(4, 4, NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -99,6 +77,21 @@ INSERT INTO `board_empty` (`x`, `y`, `piece_color`, `piece_height`, `piece_consi
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `empty_pieces`
+--
+
+CREATE TABLE `empty_pieces` (
+  `Table_Id` int(11) NOT NULL,
+  `color` varchar(255) COLLATE utf8_bin NOT NULL,
+  `height` varchar(255) COLLATE utf8_bin NOT NULL,
+  `consistency` varchar(255) COLLATE utf8_bin NOT NULL,
+  `Shape` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `game_status`
 --
 
@@ -108,6 +101,23 @@ CREATE TABLE `game_status` (
   `result` enum('p1','p2','D') DEFAULT NULL,
   `last_change` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `game_status`
+--
+
+INSERT INTO `game_status` (`status`, `p_turn`, `result`, `last_change`) VALUES
+('aborded', NULL, 'p2', '2021-12-07 01:27:51');
+
+--
+-- Triggers `game_status`
+--
+DELIMITER $$
+CREATE TRIGGER `game_status_update` BEFORE UPDATE ON `game_status` FOR EACH ROW BEGIN
+	SET NEW.last_change = NOW();
+    END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -163,8 +173,8 @@ CREATE TABLE `players` (
 --
 
 INSERT INTO `players` (`username`, `player_id`, `token`, `last_action`) VALUES
-(NULL, 'p1', NULL, NULL),
-(NULL, 'p2', NULL, NULL);
+(NULL, 'p1', NULL, '2021-12-08 01:47:09'),
+(NULL, 'p2', NULL, '2021-12-08 01:47:16');
 
 --
 -- Indexes for dumped tables
@@ -177,10 +187,26 @@ ALTER TABLE `board_empty`
   ADD PRIMARY KEY (`x`,`y`);
 
 --
+-- Indexes for table `empty_pieces`
+--
+ALTER TABLE `empty_pieces`
+  ADD PRIMARY KEY (`Table_Id`);
+
+--
 -- Indexes for table `players`
 --
 ALTER TABLE `players`
   ADD PRIMARY KEY (`player_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `empty_pieces`
+--
+ALTER TABLE `empty_pieces`
+  MODIFY `Table_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=346;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

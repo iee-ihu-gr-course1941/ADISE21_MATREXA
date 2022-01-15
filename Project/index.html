@@ -5,31 +5,51 @@
         <meta name="viewport" content="width=device-width,initial-scale">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title >ΑΔΙΣΕ: Quarto board game</title>
+        <title > Quarto board game</title>
 
         <!--Botstrap core CSS-->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/quatro.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
         <script src="js/bootstrap.min.js"></script>
         <script src="js/quatrojs.js"></script>
-        <script src="js/move.js"></script>
     </head>
     <body>
-<p><h1>Quarto Board Game</h1></p>
+        <p><h1>Quarto Board Game</h1></p>
+
+        <div id='game_initializer'>
+            <h4>You are ?</h4>
+            <input id='username'placeholder="Username"> 
+            <select id='PLAYER'>
+            <option value='p1'>First Player</option>
+            <option value='p2'>Second Player</option>
+            </select>
+            <button id='quarto_login' class='btn btn-primary'>Enter the game</button><br>
+            </div>
+        </div>
+            <div id='game_info'>
+            </div>
+
+            
+
+
 <div id="board"></div>
-<br><h4>Choose a pawn for the opponent:</h4><div id="chosen_piece"></div>
+<div id='move_div'>
+<br><h4>Choose a pawn for the opponent:</h4>
  <div id="quarto_board"></div>
-
-
-
+</div>
+<div id="pawn_to_play">
+    <<h4>That is your Choosen  pawn :</h4><div id="piece"></div>
+    <div id="chosen_piece"></div>
+</div>
+<button id='reset' class='btn btn-primary'>Start/Reset the game</button><br>
 
 
 
 <!--Popup displayed at the first game to learn the rules-->
 <div id="startingTutorial">
-    <h1>QUARTO</h1>
+
     <p>
         Do you know how to play ?
     </p>

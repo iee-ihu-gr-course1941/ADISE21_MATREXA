@@ -25,7 +25,6 @@ function reset_board(){
 function move_piece($x) {
 	//dokimazw tin do_move panw apo tous elegxous 
 	do_move($x);
-	
 			exit;
 	if($token==null || $token=='') {
 		header("HTTP/1.1 400 Bad Request");
@@ -90,7 +89,7 @@ function read_board() {
 }
 function fill_board($id,$x,$y){
 	global $mysqli;
-	$sql = 'INSERT into board(id,x,y) values(?,?,?)';
+	$sql = 'UPDATE board SET id=? where x=? and y=?';
 	$st = $mysqli->prepare($sql);
 	$st->bind_param('iii',$id,$x,$y);
 	$st->execute();
