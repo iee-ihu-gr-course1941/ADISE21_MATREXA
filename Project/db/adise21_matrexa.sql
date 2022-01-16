@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2021 at 02:48 AM
+-- Generation Time: Jan 14, 2022 at 03:35 PM
 -- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.13
+-- PHP Version: 8.0.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -21,6 +21,14 @@ SET time_zone = "+00:00";
 -- Database: `adise21_matrexa`
 --
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clean_board` ()  replace into board select * from board_empty$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -28,14 +36,33 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `board` (
+  `tableID` int(16) DEFAULT NULL,
   `x` tinyint(1) NOT NULL,
   `y` tinyint(1) NOT NULL,
-  `color` enum('W','B') DEFAULT NULL,
-  `height` enum('S','T') DEFAULT NULL,
-  `consistency` enum('H','SO') DEFAULT NULL,
-  `Shape` enum('SQ','R') DEFAULT NULL,
-  `id` int(16) NOT NULL
+  `id` int(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `board`
+--
+
+INSERT INTO `board` (`tableID`, `x`, `y`, `id`) VALUES
+(0, 1, 1, NULL),
+(1, 1, 2, NULL),
+(2, 1, 3, NULL),
+(3, 1, 4, NULL),
+(4, 2, 1, NULL),
+(5, 2, 2, NULL),
+(6, 2, 3, NULL),
+(7, 2, 4, NULL),
+(8, 3, 1, NULL),
+(9, 3, 2, NULL),
+(10, 3, 3, NULL),
+(11, 3, 4, NULL),
+(12, 4, 1, NULL),
+(13, 4, 2, NULL),
+(14, 4, 3, NULL),
+(15, 4, 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -44,35 +71,33 @@ CREATE TABLE `board` (
 --
 
 CREATE TABLE `board_empty` (
+  `tableID` int(16) DEFAULT NULL,
   `x` tinyint(1) NOT NULL,
   `y` tinyint(1) NOT NULL,
-  `piece_color` enum('W','B') DEFAULT NULL,
-  `piece_height` enum('S','T') DEFAULT NULL,
-  `piece_consistency` enum('H','SO') DEFAULT NULL,
-  `piece_shape` enum('SQ','R') DEFAULT NULL
+  `id` int(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `board_empty`
 --
 
-INSERT INTO `board_empty` (`x`, `y`, `piece_color`, `piece_height`, `piece_consistency`, `piece_shape`) VALUES
-(1, 1, NULL, NULL, NULL, NULL),
-(1, 2, NULL, NULL, NULL, NULL),
-(1, 3, NULL, NULL, NULL, NULL),
-(1, 4, NULL, NULL, NULL, NULL),
-(2, 1, NULL, NULL, NULL, NULL),
-(2, 2, NULL, NULL, NULL, NULL),
-(2, 3, NULL, NULL, NULL, NULL),
-(2, 4, NULL, NULL, NULL, NULL),
-(3, 1, NULL, NULL, NULL, NULL),
-(3, 2, NULL, NULL, NULL, NULL),
-(3, 3, NULL, NULL, NULL, NULL),
-(3, 4, NULL, NULL, NULL, NULL),
-(4, 1, NULL, NULL, NULL, NULL),
-(4, 2, NULL, NULL, NULL, NULL),
-(4, 3, NULL, NULL, NULL, NULL),
-(4, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `board_empty` (`tableID`, `x`, `y`, `id`) VALUES
+(0, 1, 1, NULL),
+(1, 1, 2, NULL),
+(2, 1, 3, NULL),
+(3, 1, 4, NULL),
+(4, 2, 1, NULL),
+(5, 2, 2, NULL),
+(6, 2, 3, NULL),
+(7, 2, 4, NULL),
+(8, 3, 1, NULL),
+(9, 3, 2, NULL),
+(10, 3, 3, NULL),
+(11, 3, 4, NULL),
+(12, 4, 1, NULL),
+(13, 4, 2, NULL),
+(14, 4, 3, NULL),
+(15, 4, 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -107,7 +132,7 @@ CREATE TABLE `game_status` (
 --
 
 INSERT INTO `game_status` (`status`, `p_turn`, `result`, `last_change`) VALUES
-('aborded', NULL, 'p2', '2021-12-07 01:27:51');
+('aborded', NULL, 'p2', '2021-12-16 03:00:15');
 
 --
 -- Triggers `game_status`
@@ -173,8 +198,8 @@ CREATE TABLE `players` (
 --
 
 INSERT INTO `players` (`username`, `player_id`, `token`, `last_action`) VALUES
-(NULL, 'p1', NULL, '2021-12-08 01:47:09'),
-(NULL, 'p2', NULL, '2021-12-08 01:47:16');
+(NULL, 'p1', NULL, '2021-12-16 12:58:48'),
+(NULL, 'p2', NULL, '2021-12-16 12:58:54');
 
 --
 -- Indexes for dumped tables
@@ -206,7 +231,7 @@ ALTER TABLE `players`
 -- AUTO_INCREMENT for table `empty_pieces`
 --
 ALTER TABLE `empty_pieces`
-  MODIFY `Table_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=346;
+  MODIFY `Table_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=498;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
